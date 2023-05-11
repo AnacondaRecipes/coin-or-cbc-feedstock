@@ -1,4 +1,4 @@
-{% set version = "2.10.10" %}
+{% set version = "2.10.7" %}
 
 package:
   name: coin-or-cbc-meta
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/coin-or/Cbc/archive/releases/{{ version }}.tar.gz
-  sha256: f394efecccc40a51bf79fba2c2af0bc92561f3e6b8b6e4c6e36d5e70986f734f
+  sha256: 5aa5490e2bc39c3c03f3636c9bca459cb3f8f365e0280fd0c4759ce3119e5b19
   patches:
     - patches/0001-Patch-for-downstream.patch
 
@@ -28,11 +28,15 @@ outputs:
         - {{ compiler('cxx') }}
         - pkg-config
         - make  # [unix]
+        - patch  # [unix]
+        - m2-patch  # [win]
       host:
         - coin-or-cgl
         - coin-or-clp
         - coin-or-osi
         - coin-or-utils
+      run:
+        - readline
       run_constrained:
         - coincbc * *_metapackage
 
