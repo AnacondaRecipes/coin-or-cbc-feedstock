@@ -10,7 +10,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: true  # [blas_impl != "openblas"]
 
 outputs:
   - name: coin-or-cbc
@@ -27,12 +27,16 @@ outputs:
         - pkg-config
         - make  # [unix]
       host:
-        - coin-or-cgl
-        - coin-or-clp
-        - coin-or-osi
-        - coin-or-utils
+        - coin-or-cgl 0.60.5
+        - coin-or-clp 1.17.7
+        - coin-or-osi 0.108.7
+        - coin-or-utils 2.11.6
+        - openblas {{ openblas }}         # [blas_impl == "openblas"]
       run:
         - readline
+        - libopenblas                     # [blas_impl == "openblas"]
+        # To stop the compiler pulling in an openmp implementation itself
+        - _openmp_mutex                   # [linux]
       run_constrained:
         - coincbc * *_metapackage
 
