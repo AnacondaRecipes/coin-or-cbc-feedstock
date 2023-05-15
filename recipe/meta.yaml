@@ -33,7 +33,8 @@ outputs:
         - coin-or-utils 2.11.6
         - openblas {{ openblas }}         # [blas_impl == "openblas"]
       run:
-        - readline
+        - bzip2
+        - zlib
         - libopenblas                     # [blas_impl == "openblas"]
         # To stop the compiler pulling in an openmp implementation itself
         - _openmp_mutex                   # [linux]
