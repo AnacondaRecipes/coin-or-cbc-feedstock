@@ -52,8 +52,9 @@ outputs:
         - cbc test.lp solve solution '$' | tr -s ' ' | grep '1 y 1 0'
 
     about:
-      home: https://projects.coin-or.org/Cbc
+      home: https://github.com/coin-or/Cbc
       dev_url: https://github.com/coin-or/Cbc
+      doc_url: https://coin-or.github.io/Cbc/Doxygen/
       license: EPL-2.0
       license_family: OTHER
       license_file: LICENSE
@@ -79,8 +80,9 @@ outputs:
 
 
 about:
-  home: https://projects.coin-or.org/Cbc
+  home: https://github.com/coin-or/Cbc
   dev_url: https://github.com/coin-or/Cbc
+  doc_url: https://coin-or.github.io/Cbc/Doxygen/
   license: EPL-2.0
   license_family: OTHER
   license_file: LICENSE
