@@ -35,6 +35,7 @@ outputs:
       run:
         - bzip2
         - zlib
+        - readline
         - libopenblas                     # [blas_impl == "openblas"]
         # To stop the compiler pulling in an openmp implementation itself
         - _openmp_mutex                   # [linux]
