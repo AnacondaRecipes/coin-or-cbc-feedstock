@@ -1,4 +1,4 @@
-{% set version = "2.10.10" %}
+{% set version = "2.10.7" %}
 
 package:
   name: coin-or-cbc-meta
@@ -6,13 +6,11 @@ package:
 
 source:
   url: https://github.com/coin-or/Cbc/archive/releases/{{ version }}.tar.gz
-  sha256: f394efecccc40a51bf79fba2c2af0bc92561f3e6b8b6e4c6e36d5e70986f734f
-  patches:
-    - patches/0001-Patch-for-downstream.patch
+  sha256: 5aa5490e2bc39c3c03f3636c9bca459cb3f8f365e0280fd0c4759ce3119e5b19
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: true  # [blas_impl != "openblas"]
 
 outputs:
   - name: coin-or-cbc
@@ -29,10 +27,18 @@ outputs:
         - pkg-config
         - make  # [unix]
       host:
-        - coin-or-cgl
-        - coin-or-clp
-        - coin-or-osi
-        - coin-or-utils
+        - coin-or-cgl 0.60.5
+        - coin-or-clp 1.17.7
+        - coin-or-osi 0.108.7
+        - coin-or-utils 2.11.6
+        - openblas {{ openblas }}         # [blas_impl == "openblas"]
+      run:
+        - bzip2
+        - zlib
+        - readline
+        - libopenblas                     # [blas_impl == "openblas"]
+        # To stop the compiler pulling in an openmp implementation itself
+        - _openmp_mutex                   # [linux]
       run_constrained:
         - coincbc * *_metapackage
 
@@ -48,8 +54,9 @@ outputs:
         - cbc test.lp solve solution '$' | tr -s ' ' | grep '1 y 1 0'
 
     about:
-      home: https://projects.coin-or.org/Cbc
+      home: https://github.com/coin-or/Cbc
       dev_url: https://github.com/coin-or/Cbc
+      doc_url: https://coin-or.github.io/Cbc/Doxygen/
       license: EPL-2.0
       license_family: OTHER
       license_file: LICENSE
@@ -75,8 +82,9 @@ outputs:
 
 
 about:
-  home: https://projects.coin-or.org/Cbc
+  home: https://github.com/coin-or/Cbc
   dev_url: https://github.com/coin-or/Cbc
+  doc_url: https://coin-or.github.io/Cbc/Doxygen/
   license: EPL-2.0
   license_family: OTHER
   license_file: LICENSE
