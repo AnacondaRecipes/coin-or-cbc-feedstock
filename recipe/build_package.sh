@@ -11,7 +11,11 @@ fi
 if [[ "${target_platform}" == win-* ]]; then
   CLP_LIB=( --with-clp-lib='${libdir}/libClp.lib ${libdir}/libOsiClp.lib' )
   CLP_INC=( --with-clp-incdir='${LIBRARY_PREFIX_COIN}' )
-  COINDEPEND_LIB=( --with-coindepend-lib='${libdir}/mkl_rt.lib ${libdir}/libCoinUtils.lib ${libdir}/libOsi.lib ${libdir}/libCgl.lib' )
+  if [[ "${target_platform}" == win-arm64 ]]; then
+    COINDEPEND_LIB=( --with-coindepend-lib='${libdir}/openblas.lib ${libdir}/libCoinUtils.lib ${libdir}/libOsi.lib ${libdir}/libCgl.lib' )
+  else
+    COINDEPEND_LIB=( --with-coindepend-lib='${libdir}/mkl_rt.lib ${libdir}/libCoinUtils.lib ${libdir}/libOsi.lib ${libdir}/libCgl.lib' )
+  fi
   COINDEPEND_INC=( --with-coindepend-incdir='${LIBRARY_PREFIX_COIN}' )
   EXTRA_FLAGS=( --enable-msvc=MD ) 
 else
